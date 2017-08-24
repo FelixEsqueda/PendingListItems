@@ -11,14 +11,15 @@ using PendingListItems.Models;
 
 namespace PendingListItems.Controllers
 {
+    [NoCache]
     public class ListItemController : Controller
     {
         private DataContext.DataContext db = new DataContext.DataContext();
 
-        // GET: ListItem
         public ActionResult Index()
         {
             var listItem = db.ListItem.Include(l => l.DefaultPriority);
+            ViewBag.Total = listItem.Sum(t => t.Amount);
             return View(listItem.ToList());
         }
 
