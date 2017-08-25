@@ -17,6 +17,8 @@ namespace PendingListItems.Models
         public bool Payd { get; set; }
         public decimal Prepayment { get; set; }
         public decimal? AmountPayable { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PayDate { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? LastModificationDate { get; set; }

@@ -54,6 +54,8 @@ namespace PendingListItems.Controllers
         {
             if (ModelState.IsValid)
             {
+                conceptModel.CreationDate = DateTime.Now;
+                conceptModel.LastModificationDate = DateTime.Now;
                 db.Concept.Add(conceptModel);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SummaryId = conceptModel.SummaryId });

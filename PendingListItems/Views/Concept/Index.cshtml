@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PendingListItems.Models.ConceptModel>
+@using PendingListItems.Helpers;
 
 @{
     ViewBag.Title = "Index";
@@ -27,18 +28,18 @@
         <th>
             @Html.DisplayNameFor(model => model.Prepayment)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AmountPayable)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.PayDate)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CreationDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastModificationDate)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -51,26 +52,26 @@
             @Html.DisplayFor(modelItem => item.ConceptName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Amount)
+            @Helpers.ToDecimalAmount(item.Amount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Payd)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Prepayment)
+            @Helpers.ToDecimalAmount(item.Prepayment)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.AmountPayable)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.PayDate)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.CreationDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastModificationDate)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ConceptId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ConceptId }) |

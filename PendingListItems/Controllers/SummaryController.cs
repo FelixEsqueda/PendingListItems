@@ -53,6 +53,8 @@ namespace PendingListItems.Controllers
         {
             if (ModelState.IsValid)
             {
+                summaryModel.CreationDate = DateTime.Now;
+                summaryModel.LastModificationDate = DateTime.Now;
                 db.Summary.Add(summaryModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,12 +85,16 @@ namespace PendingListItems.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SummaryId,SummaryName,UpdatedAmount,PendingAmount,TotalAmount,CreationDate,LastModificationDate,PeriodId")] SummaryModel summaryModel)
+        public ActionResult Edit([Bind(Include = "SummaryId,SummaryName,LastModificationDate,PeriodId")] SummaryModel summaryModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(summaryModel).State = EntityState.Modified;
+                summaryModel.LastModificationDate = DateTime.Now;
+                db.Summary.Attach(summaryModel);
+                db.Entry(summaryModel).Property(x => x.SummaryName).IsModified = true;
+                db.Entry(summaryModel).Property(x => x.LastModificationDate).IsModified = true;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.PeriodId = new SelectList(db.Period, "PeriodId", "PeriodName", summaryModel.PeriodId);
