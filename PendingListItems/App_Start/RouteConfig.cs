@@ -16,7 +16,7 @@ namespace PendingListItems
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "ListItem", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Summary", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

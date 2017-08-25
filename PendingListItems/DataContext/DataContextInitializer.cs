@@ -27,6 +27,16 @@ namespace PendingListItems.DataContext
 
             priorities.ForEach(s => context.Priority.Add(s));
             context.SaveChanges();
+
+            var periods = new List<PeriodModel>
+            {
+                new PeriodModel{ PeriodName = "Weekly" },
+                new PeriodModel{ PeriodName = "Fortnight" },
+                new PeriodModel{ PeriodName = "Montly" }
+            };
+
+            periods.ForEach(s => context.Period.Add(s));
+            context.SaveChanges();
         }
     }
 }

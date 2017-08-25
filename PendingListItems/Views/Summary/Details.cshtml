@@ -1,0 +1,75 @@
+﻿@model PendingListItems.Models.SummaryModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SummaryModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Periods.PeriodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Periods.PeriodName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SummaryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SummaryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PendingAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PendingAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModificationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModificationDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SummaryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

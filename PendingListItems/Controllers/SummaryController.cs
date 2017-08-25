@@ -11,113 +11,112 @@ using PendingListItems.Models;
 
 namespace PendingListItems.Controllers
 {
-    [NoCache]
-    public class ListItemController : Controller
+    public class SummaryController : Controller
     {
         private DataContext.DataContext db = new DataContext.DataContext();
 
+        // GET: Summary
         public ActionResult Index()
         {
-            var listItem = db.ListItem.Include(l => l.DefaultPriority);
-            ViewBag.Total = listItem.Sum(t => (decimal?)t.Amount);
-            return View(listItem.ToList());
+            var summary = db.Summary.Include(s => s.Periods).ToList();
+            return View(summary);
         }
 
-        // GET: ListItem/Details/5
+        // GET: Summary/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            SummaryModel summaryModel = db.Summary.Find(id);
+            if (summaryModel == null)
             {
                 return HttpNotFound();
             }
-            return View(listItemModel);
+            return View(summaryModel);
         }
 
-        // GET: ListItem/Create
+        // GET: Summary/Create
         public ActionResult Create()
         {
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description");
+            ViewBag.PeriodId = new SelectList(db.Period, "PeriodId", "PeriodName");
             return View();
         }
 
-        // POST: ListItem/Create
+        // POST: Summary/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ListItemId,ItemName,PriorityId,Amount")] ListItemModel listItemModel)
+        public ActionResult Create([Bind(Include = "SummaryId,SummaryName,UpdatedAmount,PendingAmount,TotalAmount,CreationDate,LastModificationDate,PeriodId")] SummaryModel summaryModel)
         {
             if (ModelState.IsValid)
             {
-                db.ListItem.Add(listItemModel);
+                db.Summary.Add(summaryModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.PeriodId = new SelectList(db.Period, "PeriodId", "PeriodName", summaryModel.PeriodId);
+            return View(summaryModel);
         }
 
-        // GET: ListItem/Edit/5
+        // GET: Summary/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            SummaryModel summaryModel = db.Summary.Find(id);
+            if (summaryModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.PeriodId = new SelectList(db.Period, "PeriodId", "PeriodName", summaryModel.PeriodId);
+            return View(summaryModel);
         }
 
-        // POST: ListItem/Edit/5
+        // POST: Summary/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ListItemId,ItemName,PriorityId,Amount")] ListItemModel listItemModel)
+        public ActionResult Edit([Bind(Include = "SummaryId,SummaryName,UpdatedAmount,PendingAmount,TotalAmount,CreationDate,LastModificationDate,PeriodId")] SummaryModel summaryModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(listItemModel).State = EntityState.Modified;
+                db.Entry(summaryModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.PeriodId = new SelectList(db.Period, "PeriodId", "PeriodName", summaryModel.PeriodId);
+            return View(summaryModel);
         }
 
-        // GET: ListItem/Delete/5
+        // GET: Summary/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            SummaryModel summaryModel = db.Summary.Find(id);
+            if (summaryModel == null)
             {
                 return HttpNotFound();
             }
-            return View(listItemModel);
+            return View(summaryModel);
         }
 
-        // POST: ListItem/Delete/5
+        // POST: Summary/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            db.ListItem.Remove(listItemModel);
+            SummaryModel summaryModel = db.Summary.Find(id);
+            db.Summary.Remove(summaryModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

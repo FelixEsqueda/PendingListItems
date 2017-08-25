@@ -11,113 +11,113 @@ using PendingListItems.Models;
 
 namespace PendingListItems.Controllers
 {
-    [NoCache]
-    public class ListItemController : Controller
+    public class ConceptController : Controller
     {
         private DataContext.DataContext db = new DataContext.DataContext();
 
-        public ActionResult Index()
+        // GET: Concept
+        public ActionResult Index(int? SummaryId)
         {
-            var listItem = db.ListItem.Include(l => l.DefaultPriority);
-            ViewBag.Total = listItem.Sum(t => (decimal?)t.Amount);
-            return View(listItem.ToList());
+            var concept = db.Concept.Include(c => c.Summary).Where(t => t.SummaryId == SummaryId).ToList();
+            ViewBag.SummaryId = SummaryId;
+            return View(concept);
         }
 
-        // GET: ListItem/Details/5
+        // GET: Concept/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            ConceptModel conceptModel = db.Concept.Find(id);
+            if (conceptModel == null)
             {
                 return HttpNotFound();
             }
-            return View(listItemModel);
+            return View(conceptModel);
         }
 
-        // GET: ListItem/Create
-        public ActionResult Create()
+        // GET: Concept/Create
+        public ActionResult Create(int? SummaryId)
         {
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description");
+            ViewBag.SummaryId = new SelectList(db.Summary.Where(t => t.SummaryId == SummaryId), "SummaryId", "SummaryName");
             return View();
         }
 
-        // POST: ListItem/Create
+        // POST: Concept/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ListItemId,ItemName,PriorityId,Amount")] ListItemModel listItemModel)
+        public ActionResult Create([Bind(Include = "ConceptId,ConceptName,Amount,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
         {
             if (ModelState.IsValid)
             {
-                db.ListItem.Add(listItemModel);
+                db.Concept.Add(conceptModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { SummaryId = conceptModel.SummaryId });
             }
 
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.SummaryId = new SelectList(db.Summary, "SummaryId", "SummaryName", conceptModel.SummaryId);
+            return View(conceptModel);
         }
 
-        // GET: ListItem/Edit/5
+        // GET: Concept/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            ConceptModel conceptModel = db.Concept.Find(id);
+            if (conceptModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.SummaryId = new SelectList(db.Summary, "SummaryId", "SummaryName", conceptModel.SummaryId);
+            return View(conceptModel);
         }
 
-        // POST: ListItem/Edit/5
+        // POST: Concept/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ListItemId,ItemName,PriorityId,Amount")] ListItemModel listItemModel)
+        public ActionResult Edit([Bind(Include = "ConceptId,ConceptName,Amount,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(listItemModel).State = EntityState.Modified;
+                db.Entry(conceptModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PriorityId = new SelectList(db.Priority, "PriorityId", "Description", listItemModel.PriorityId);
-            return View(listItemModel);
+            ViewBag.SummaryId = new SelectList(db.Summary, "SummaryId", "SummaryName", conceptModel.SummaryId);
+            return View(conceptModel);
         }
 
-        // GET: ListItem/Delete/5
+        // GET: Concept/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            if (listItemModel == null)
+            ConceptModel conceptModel = db.Concept.Find(id);
+            if (conceptModel == null)
             {
                 return HttpNotFound();
             }
-            return View(listItemModel);
+            return View(conceptModel);
         }
 
-        // POST: ListItem/Delete/5
+        // POST: Concept/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ListItemModel listItemModel = db.ListItem.Find(id);
-            db.ListItem.Remove(listItemModel);
+            ConceptModel conceptModel = db.Concept.Find(id);
+            db.Concept.Remove(conceptModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
