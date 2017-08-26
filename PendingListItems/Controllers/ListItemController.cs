@@ -18,7 +18,7 @@ namespace PendingListItems.Controllers
 
         public ActionResult Index()
         {
-            var listItem = db.ListItem.Include(l => l.DefaultPriority);
+            var listItem = db.ListItem.Include(l => l.DefaultPriority).OrderBy(t => t.PriorityId);
             ViewBag.Total = listItem.Sum(t => t.Amount);
             return View(listItem.ToList());
         }
