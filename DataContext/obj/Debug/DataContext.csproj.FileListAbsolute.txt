@@ -1,5 +1,0 @@
-C:\Israel\Code Repositories\Hg\PendingListItems\DataContext\bin\Debug\DataContext.dll
-C:\Israel\Code Repositories\Hg\PendingListItems\DataContext\bin\Debug\DataContext.pdb
-C:\Israel\Code Repositories\Hg\PendingListItems\DataContext\obj\Debug\DataContext.csprojResolveAssemblyReference.cache
-C:\Israel\Code Repositories\Hg\PendingListItems\DataContext\obj\Debug\DataContext.dll
-C:\Israel\Code Repositories\Hg\PendingListItems\DataContext\obj\Debug\DataContext.pdb
