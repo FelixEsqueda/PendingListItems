@@ -60,13 +60,13 @@
             @Html.DisplayFor(model => model.AmountPayable)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.PayDate)
-        </dt>
+        </dt>*@
 
-        <dd>
+        @*<dd>
             @Html.DisplayFor(model => model.PayDate)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.CreationDate)
@@ -90,8 +90,9 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @*@Html.ActionLink("Delete", "Delete", new { SummaryId = ViewBag.SummaryId }, new { @class = "btn btn-danger", type = "submit" })*@
+            @Html.ActionLink("Back to List", "Index", new { SummaryId = ViewBag.SummaryId }, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

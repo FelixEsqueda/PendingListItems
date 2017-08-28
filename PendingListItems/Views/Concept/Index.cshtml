@@ -2,20 +2,21 @@
 @using PendingListItems.Helpers;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Concepts";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.SummaryName</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { SummaryId = ViewBag.SummaryId })
+    @Html.ActionLink("Create New", "Create", new { SummaryId = ViewBag.SummaryId }, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th></th><th></th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Summary.SummaryName)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.ConceptName)
         </th>
@@ -31,25 +32,31 @@
         @*<th>
             @Html.DisplayNameFor(model => model.AmountPayable)
         </th>*@
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.PayDate)
-        </th>
+        </th>*@
         @*<th>
             @Html.DisplayNameFor(model => model.CreationDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastModificationDate)
         </th>*@
-        <th></th>
+        @*<th></th>*@
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td style="font-size:larger">
+            @Html.ActionLink(" ", "Delete", new { id = item.ConceptId, SummaryId = ViewBag.SummaryId }, new { @class = "glyphicon glyphicon-trash red !important" })
+        </td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Summary.SummaryName)
+        </td>*@
+        <td style="font-size:larger">
+            @Html.ActionLink(" ", "Edit", new { id = item.ConceptId, SummaryId = ViewBag.SummaryId }, new { @class = "glyphicon glyphicon-edit" })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ConceptName)
+            <span class="@(@item.Payd ? "text-success" : (item.Prepayment > 0 ? "text-primary" : "text-danger"))">@item.ConceptName</span>
         </td>
         <td>
             @Helpers.ToDecimalAmount(item.Amount)
@@ -63,20 +70,18 @@
         @*<td>
             @Html.DisplayFor(modelItem => item.AmountPayable)
         </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.PayDate)
-        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.PayDate.Value)
+        </td>*@
         @*<td>
             @Html.DisplayFor(modelItem => item.CreationDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastModificationDate)
         </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ConceptId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ConceptId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ConceptId })
-        </td>
+        @*<td>
+            @Html.ActionLink(" ", "Details", new { id = item.ConceptId }, new { @class = "glyphicon glyphicon-list-alt" })
+        </td>*@
     </tr>
 }
 

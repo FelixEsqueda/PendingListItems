@@ -5,13 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>List of all items</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
+        <th></th><th></th>
         <th>
             @Html.DisplayNameFor(model => model.DefaultPeriod.PeriodName)
         </th>
@@ -33,11 +34,16 @@
         @*<th>
         @Html.DisplayNameFor(model => model.LastModificationDate)
     </th>*@
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td style="font-size:larger">
+            @Html.ActionLink(" ", "Delete", new { id = item.SummaryId }, new { @class = "glyphicon glyphicon-trash fa-2x" })   
+        </td>
+        <td style="font-size:larger">
+            @Html.ActionLink(" ", "Edit", new { id = item.SummaryId }, new { @class = "glyphicon glyphicon-edit" })
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.DefaultPeriod.PeriodName)
         </td>
@@ -53,17 +59,12 @@
         <td>
             @Helpers.ToDecimalAmount(item.TotalAmount)
         </td>
-        <td>
+        <td style="font-size:larger">
             @Html.ActionLink(" ", "Index", "Concept", new { summaryId = item.SummaryId }, new { @class = "glyphicon glyphicon-sort-by-attributes" })
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.LastModificationDate)
         </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SummaryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SummaryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SummaryId })
-        </td>
     </tr>
 }
 
