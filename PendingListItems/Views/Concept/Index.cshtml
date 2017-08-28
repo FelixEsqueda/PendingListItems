@@ -1,0 +1,83 @@
+﻿@model IEnumerable<PendingListItems.Models.ConceptModel>
+@using PendingListItems.Helpers;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { SummaryId = ViewBag.SummaryId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary.SummaryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConceptName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prepayment)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AmountPayable)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModificationDate)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Summary.SummaryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConceptName)
+        </td>
+        <td>
+            @Helpers.ToDecimalAmount(item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payd)
+        </td>
+        <td>
+            @Helpers.ToDecimalAmount(item.Prepayment)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AmountPayable)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.PayDate)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModificationDate)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ConceptId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ConceptId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ConceptId })
+        </td>
+    </tr>
+}
+
+</table>
