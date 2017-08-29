@@ -13,6 +13,7 @@ namespace PendingListItems.Models
         [Key]
         public int ConceptId { get; set; }
         public string ConceptName { get; set; }
+        public bool EsEgreso { get; set; }
         public decimal Amount { get; set; }
         public bool Payd { get; set; }
         public decimal Prepayment { get; set; }

@@ -53,7 +53,7 @@ namespace PendingListItems.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ConceptId,ConceptName,Amount,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
+        public ActionResult Create([Bind(Include = "ConceptId,ConceptName,Amount,EsEgreso,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace PendingListItems.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConceptId,ConceptName,Amount,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
+        public ActionResult Edit([Bind(Include = "ConceptId,ConceptName,EsEgreso,Amount,Payd,Prepayment,AmountPayable,PayDate,CreationDate,LastModificationDate,SummaryId")] ConceptModel conceptModel)
         {
             if (ModelState.IsValid)
             {

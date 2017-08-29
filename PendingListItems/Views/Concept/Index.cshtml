@@ -21,6 +21,9 @@
             @Html.DisplayNameFor(model => model.ConceptName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.EsEgreso)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th>
@@ -57,6 +60,9 @@
         </td>
         <td>
             <span class="@(@item.Payd ? "text-success" : (item.Prepayment > 0 ? "text-primary" : "text-danger"))">@item.ConceptName</span>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EsEgreso)
         </td>
         <td>
             @Helpers.ToDecimalAmount(item.Amount)

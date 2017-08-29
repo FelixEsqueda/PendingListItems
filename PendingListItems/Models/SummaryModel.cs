@@ -14,9 +14,16 @@ namespace PendingListItems.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int SummaryId { get; set; }
         public string SummaryName { get; set; }
-        public decimal? UpdatedAmount { get; set; }
-        public decimal? PendingAmount { get; set; }
-        public decimal? TotalAmount { get; set; }
+
+        public decimal? TotalIncome { get; set; }
+        public decimal? TotalOutcome { get; set; }
+        public decimal? ConceptsPayd { get; set; }
+
+        public int NumberOfConcepts { get; set; }
+
+        //public decimal? UpdatedAmount { get; set; }
+        //public decimal? PendingAmount { get; set; }
+        //public decimal? TotalAmount { get; set; }
         public DateTime? CreationDate { get; set; }
         public DateTime? LastModificationDate { get; set; }
 

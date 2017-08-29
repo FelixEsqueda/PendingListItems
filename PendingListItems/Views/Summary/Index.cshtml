@@ -5,7 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List of all items</h2>
+@*<h2>List of all items</h2>*@
+
+<div class="page-header">
+    <h1>
+        Expenses
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            overview &amp; stats
+        </small>
+    </h1>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
@@ -19,15 +29,15 @@
         <th>
             @Html.DisplayNameFor(model => model.SummaryName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.UpdatedAmount)
-        </th>
+        </th>*@
         @*<th>
             @Html.DisplayNameFor(model => model.PendingAmount)
         </th>*@
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.TotalAmount)
-        </th>
+        </th>*@
        <th>
             Concepts
         </th>
@@ -39,7 +49,7 @@
 @foreach (var item in Model) {
     <tr>
         <td style="font-size:larger">
-            @Html.ActionLink(" ", "Delete", new { id = item.SummaryId }, new { @class = "glyphicon glyphicon-trash fa-2x" })   
+            @Html.ActionLink(" ", "Delete", new { id = item.SummaryId }, new { @class = "glyphicon glyphicon-trash" })   
         </td>
         <td style="font-size:larger">
             @Html.ActionLink(" ", "Edit", new { id = item.SummaryId }, new { @class = "glyphicon glyphicon-edit" })
@@ -50,15 +60,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.SummaryName)
         </td>
-        <td>
+        @*<td>
             @Helpers.ToDecimalAmount(item.UpdatedAmount)
-        </td>
+        </td>*@
         @*<td>
             @Helpers.ToDecimalAmount(item.PendingAmount)
         </td>*@
-        <td>
+        @*<td>
             @Helpers.ToDecimalAmount(item.TotalAmount)
-        </td>
+        </td>*@
         <td style="font-size:larger">
             @Html.ActionLink(" ", "Index", "Concept", new { summaryId = item.SummaryId }, new { @class = "glyphicon glyphicon-sort-by-attributes" })
         </td>
@@ -69,3 +79,136 @@
 }
 
 </table>
+
+<div class="col-sm-7 infobox-container">
+
+    <div class="infobox infobox-green">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-usd"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">@Helpers.ToDecimalAmount(@Model.Select(t => t.TotalIncome).FirstOrDefault())</span>
+            <div class="infobox-content">Income</div>
+        </div>
+
+        @*<div class="stat stat-success">8%</div>*@
+    </div>
+
+    <div class="infobox infobox-blue">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-cart-arrow-down"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">@Helpers.ToDecimalAmount(@Model.Select(t => t.TotalIncome).FirstOrDefault() - @Model.Select(t => t.TotalOutcome).FirstOrDefault())</span>
+            <div class="infobox-content">Final Balance</div>
+        </div>
+
+        @*<div class="badge badge-success">
+            +32%
+            <i class="ace-icon fa fa-arrow-up"></i>
+        </div>*@
+    </div>
+
+    <div class="infobox infobox-red">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-money"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">@Helpers.ToDecimalAmount(@Model.Select(t => t.TotalOutcome).FirstOrDefault())</span>
+            <div class="infobox-content">Outcome</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-pink">
+        
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-compress"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number"> - </span>
+            <div class="infobox-content">Income vs. Expenses</div>
+        </div>
+        <div class="badge badge-success">
+            +32%
+            <i class="ace-icon fa fa-arrow-up"></i>
+        </div>
+        @*<div class="stat stat-important">4%</div>*@
+    </div>
+
+    <div class="infobox infobox-blue2">
+        @{ 
+            int moneySpent = @Convert.ToInt32((@Model.Select(t => t.ConceptsPayd).FirstOrDefault() / @Model.Select(t => t.TotalOutcome).FirstOrDefault()) * 100);
+        }
+        <div class="infobox-progress">
+            <div class="easy-pie-chart percentage" data-percent="@moneySpent" data-size="46">
+                <span class="percent">@moneySpent</span>%
+            </div>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-text">% of spents payd</span>
+
+            <div class="infobox-content">
+                <span class="bigger-110">~</span>
+                @(@Model.Select(t => t.ConceptsPayd).FirstOrDefault()) Available
+            </div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-orange2">
+        <div class="infobox-chart">
+            <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">6,251</span>
+            <div class="infobox-content">pageviews</div>
+        </div>
+
+        <div class="badge badge-success">
+            7.2%
+            <i class="ace-icon fa fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <div class="space-6"></div>
+
+    <div class="infobox infobox-green infobox-small infobox-dark">
+        <div class="infobox-progress">
+            <div class="easy-pie-chart percentage" data-percent="61" data-size="39">
+                <span class="percent">61</span>%
+            </div>
+        </div>
+
+        <div class="infobox-data">
+            <div class="infobox-content">Task</div>
+            <div class="infobox-content">Completion</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-blue infobox-small infobox-dark">
+        <div class="infobox-chart">
+            <span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
+        </div>
+
+        <div class="infobox-data">
+            <div class="infobox-content">Earnings</div>
+            <div class="infobox-content">$32,000</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-grey infobox-small infobox-dark">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-download"></i>
+        </div>
+
+        <div class="infobox-data">
+            <div class="infobox-content">Downloads</div>
+            <div class="infobox-content">1,205</div>
+        </div>
+    </div>
+</div>

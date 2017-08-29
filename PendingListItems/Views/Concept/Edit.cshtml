@@ -36,6 +36,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.EsEgreso, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.EsEgreso)
+                    @Html.ValidationMessageFor(model => model.EsEgreso, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Payd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
